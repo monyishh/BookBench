@@ -22,7 +22,7 @@ app.use(express.json())
 
 // Constants
 const PORT = process.env.PORT || 4000
-const URI = process.env.MongoDBURI
+const URI = process.env.MongoDBURI || process.env.MONGODB_URI
 
 const initializeBooks = async () => {
   for (const book of booksData) {

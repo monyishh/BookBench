@@ -15,7 +15,7 @@ function Signup() {
 
   const onSubmit = async (data) => {
     const userInfo = {
-      name: data.name,
+      fullname: data.name,
       email: data.email,
       password: data.password,
     };
@@ -38,15 +38,15 @@ function Signup() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-4">
             <label className="block text-sm font-medium text-slate-700 dark:text-slate-200">
-              Name
+              Full Name
             </label>
             <input
               type="text"
               placeholder="Your full name"
               className="w-full mt-2 px-3 py-2 border rounded-lg bg-slate-100 dark:bg-slate-900 text-slate-900 dark:text-white"
-              {...register("name", { required: true })}
+              {...register("name", { required: "Full name is required" })}
             />
-            {errors.name && <p className="text-sm text-red-500">Name is required</p>}
+            {errors.name && <p className="text-sm text-red-500">{errors.name.message}</p>}
           </div>
 
           <div className="mb-4">
