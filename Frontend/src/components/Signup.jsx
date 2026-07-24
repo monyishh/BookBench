@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:4001";
 
 function Signup() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,8 +23,16 @@ function Signup() {
 
     try {
       const res = await axios.post(`${API_BASE}/user/signup`, userInfo);
-      toast.success("Signup successful. Please log in.");
-      console.log(res.data);
+      if (res.data) {
+        toast.success("Signup successful!");
+        // Save user to localStorage
+        localStorage.setItem("Users", JSON.stringify(res.data.user));
+        console.log(res.data);
+        // Redirect to books page after 1 second
+        setTimeout(() => {
+          navigate("/books");
+        }, 1000);
+      }
     } catch (err) {
       const message = err?.response?.data?.message || "Signup failed.";
       toast.error(message);

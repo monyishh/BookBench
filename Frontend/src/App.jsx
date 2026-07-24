@@ -7,6 +7,7 @@ import Books from "./books/Books";
 import BookDetail from "./books/BookDetail";
 import { Toaster } from "react-hot-toast";
 import { useAuth } from "./context/AuthProvider";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [authUser, setAuthUser] = useAuth();
@@ -16,9 +17,9 @@ function App() {
       <div className="dark:bg-slate-900 dark:text-white">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/books" element={<Books />} />
+          <Route path="/books" element={<ProtectedRoute element={<Books />} />} />
           <Route path="/about" element={<About />} />
-          <Route path="/books/:id" element={<BookDetail />} />
+          <Route path="/books/:id" element={<ProtectedRoute element={<BookDetail />} />} />
           <Route path="/signup" element={<Signup />} />
         </Routes>
         <Toaster />
